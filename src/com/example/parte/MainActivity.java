@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -15,31 +12,20 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		boolean flag = true;
 
-		boolean authentication = false; // authentication stuff
+		if (flag) { 											// check for already known user
 
-		if (!authentication) {
 			Intent intent = new Intent(this, LogInActivity.class);
 			startActivityForResult(intent, 1);
-		} else {
-			String User = new String("BANANA");
-			setContentView(R.layout.activity_main);
-			TextView top = (TextView) findViewById(R.id.top);
-			top.setText("WELCOME " + User);
+			flag = false;
 
-			final Button create = (Button) findViewById(R.id.button_create);
-			create.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					// create_party(); TO-DO
-				}
-			});
-
-			final Button join = (Button) findViewById(R.id.button_create);
-			create.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					// join_party(); TO-DO
-				}
-			});
+		}else{
+			
+			Toast.makeText(this, "Hello I know you BANANA",
+					Toast.LENGTH_SHORT).show();
+			
 		}
 
 	}
@@ -54,38 +40,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
-		switch (requestCode) {
-		case 1:
-			if (resultCode == RESULT_OK) {
-
-				String User = data.getStringExtra("USER");
-				Toast.makeText(this, "Hello " + User + "!", Toast.LENGTH_SHORT)
-						.show();
-				setContentView(R.layout.activity_main);
-				TextView top = (TextView) findViewById(R.id.top);
-				top.setText("WELCOME " + User);
-
-				final Button create = (Button) findViewById(R.id.button_create);
-				create.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// create_party(); TO-DO
-
-					}
-				});
-
-				final Button join = (Button) findViewById(R.id.button_create);
-				create.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						// join_party(); TO-DO
-
-					}
-				});
-			}
-			break;
-		case 2:
-			break;
-		}
+		if (resultCode == RESULT_OK && requestCode == 1)
+			Toast.makeText(this, "Hello " + data.getStringExtra("USER") + "!",
+					Toast.LENGTH_SHORT).show();
 
 	}
 
