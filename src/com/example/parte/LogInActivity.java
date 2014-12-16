@@ -16,8 +16,6 @@ public class LogInActivity extends Activity {
 
 		Button button = (Button) findViewById(R.id.button_confirm);
 		final EditText Name = (EditText) findViewById(R.id.welcome_et);
-		 // used for qdn
-																// login?
 
 		button.setOnClickListener(new View.OnClickListener() {
 
