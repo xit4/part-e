@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">partE</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="welcome_msg">Welcome to PART-E! Since this is the first time you open this app we need you to type in your name</string>
+    <string name="welcome_msg_box">Name: </string>
+    <string name="button_confirm">   Confirm   </string>
 
 </resources>
