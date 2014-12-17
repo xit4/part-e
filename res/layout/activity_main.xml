@@ -28,7 +28,7 @@
             android:id="@+id/button_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_create" />
+            android:text="@string/button_createparty" />
 
         <Button
             android:id="@+id/button_join"

@@ -15,22 +15,34 @@ public class CreateParty extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_party);
 
-		TextView From, To;
-		int year, month, day;
+		TextView From, To, Start, End;
+		int year, month, day, hour, minutes;
 
 		From = (TextView) findViewById(R.id.from_et);
 		To = (TextView) findViewById(R.id.to_et);
+
+		Start = (TextView) findViewById(R.id.fromH_et);
+		End = (TextView) findViewById(R.id.toH_et);
 
 		final Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH) + 1;
 		day = c.get(Calendar.DAY_OF_MONTH);
 
+		minutes = c.get(Calendar.MINUTE);
+		hour = c.get(Calendar.HOUR_OF_DAY);
+
 		From.setText(new StringBuilder().append(day).append("/").append(month)
 				.append("/").append(year).append(" "));
 
 		To.setText(new StringBuilder().append(day + 1).append("/")
 				.append(month).append("/").append(year).append(" "));
+
+		Start.setText(new StringBuilder().append(hour).append(":")
+				.append(minutes));
+
+		End.setText(new StringBuilder().append((hour + 6)%24).append(":")
+				.append(minutes));
 
 		ImageButton fromButton = (ImageButton) findViewById(R.id.button_from);
 		fromButton.setOnClickListener(new View.OnClickListener() {

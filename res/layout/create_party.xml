@@ -43,6 +43,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/calendar_icon" />
     </LinearLayout>
+    
+    
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,6 +70,59 @@
             android:layout_height="match_parent"
             android:src="@drawable/calendar_icon" />
     </LinearLayout>
+    
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/fromH_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fromH_box" />
+
+        <EditText
+            android:id="@+id/fromH_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/button_fromH"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/calendar_icon" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/toH_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toH_box" />
+
+        <EditText
+            android:id="@+id/toH_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/button_toH"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/calendar_icon" />
+    </LinearLayout>
+    
+
+    
 
     <Button
         android:id="@+id/button_createparty"

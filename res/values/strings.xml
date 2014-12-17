@@ -13,6 +13,8 @@
     <string name="party_msg_box"> Title: </string>
     <string name="from_box"> From: </string>
     <string name="to_box"> To: </string>
+    <string name="fromH_box"> Start: </string>
+    <string name="toH_box"> End: </string>
 
     <!-- Titles -->
     <string name="scan">Scan</string>
