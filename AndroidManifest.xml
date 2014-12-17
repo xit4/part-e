@@ -22,10 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".LogInActivity"> </activity>
-        <activity android:name="la.droid.qr.Scan"> </activity>
-        
+        <activity android:name=".LogInActivity" >
+        </activity>
+        <activity android:name=".CreateParty" >
+        </activity>
+        <activity android:name="la.droid.qr.Scan" >
+        </activity>
     </application>
 
 </manifest>

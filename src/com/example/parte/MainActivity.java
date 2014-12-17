@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 			final Button create = (Button) findViewById(R.id.button_create);
 			create.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					// create_party(); TO-DO
+					createParty();
 				}
 			});
 
@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 				final Button create = (Button) findViewById(R.id.button_create);
 				create.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						// create_party(); TO-DO
+						createParty();
 
 					}
 				});
@@ -122,7 +122,8 @@ public class MainActivity extends Activity {
 	}
 
 	protected void createParty() {
-
+		Intent createParty = new Intent(this, CreateParty.class);
+		startActivity(createParty);
 	}
 
 }
