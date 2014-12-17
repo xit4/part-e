@@ -9,4 +9,31 @@
     <string name="button_create"> Create party </string>
 	<string name="button_join"> Join party </string>
 	
+	
+	
+	
+	 <!-- Titles -->    
+    <string name="scan">Scan</string>
+    <string name="encode">Generate</string>
+    <string name="decode">Decode</string>
+    
+    <!-- Errors and messages -->
+    <string name="qrdroid_missing">QR Droid version 3.5 or later is required. Do you want to download or update it for free?</string>
+    <string name="from_market">From the Market</string>
+    <string name="direct">Direct download</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_code">Enter some text to encode</string>
+    <string name="not_saved">QR code image could not be saved. Check your SD card is available</string>
+    <string name="saved">QR code image was saved as</string>
+    <string name="enter_url">Enter local path (starting with /) or remote URL (starting with http://) of QR code image</string>
+    <string name="not_decoded">QR code image could not been loaded or decoded</string>
+    <string name="procesing">Processing...</string>
+    
+    <!-- URLs -->
+    <string name="url_market">http://market.android.com/details?id=la.droid.qr</string>
+    <string name="url_direct">http://droid.la/apk/qr/</string>
+    <string name="url_source">http://qrdroid.com/services</string>
+	
+	
+	
 </resources>

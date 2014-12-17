@@ -1,7 +1,10 @@
 package com.example.parte;
 
+import la.droid.qr.*;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,10 +37,10 @@ public class MainActivity extends Activity {
 				}
 			});
 
-			final Button join = (Button) findViewById(R.id.button_create);
-			create.setOnClickListener(new View.OnClickListener() {
+			final Button join = (Button) findViewById(R.id.button_join);
+			join.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					// join_party(); TO-DO
+					joinParty();
 				}
 			});
 		}
@@ -74,16 +77,20 @@ public class MainActivity extends Activity {
 					}
 				});
 
-				final Button join = (Button) findViewById(R.id.button_create);
-				create.setOnClickListener(new View.OnClickListener() {
+				final Button join = (Button) findViewById(R.id.button_join);
+				join.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						// join_party(); TO-DO
+						joinParty();
 
 					}
 				});
 			}
 			break;
 		case 2:
+			if (resultCode == RESULT_OK) {
+				String result = data.getExtras().getString(la.droid.qr.Services.RESULT);
+			} else if (resultCode == RESULT_CANCELED) {
+			}
 			break;
 		}
 
@@ -99,6 +106,23 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	protected void joinParty() {
+		Intent qrDroid = new Intent(la.droid.qr.Services.SCAN);
+		try {
+			startActivityForResult(qrDroid, 2);
+		} catch (ActivityNotFoundException activity) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri
+					.parse("https://play.google.com/store/apps/details?id=la.droid.qr&hl=en"));
+			startActivity(intent);
+
+		}
+	}
+
+	protected void createParty() {
+
 	}
 
 }
