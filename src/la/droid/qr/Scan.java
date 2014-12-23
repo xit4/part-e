@@ -1,6 +1,6 @@
 package la.droid.qr;
 
-import la.droid.qr.R;
+import com.example.parte.R;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

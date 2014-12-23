@@ -1,6 +1,6 @@
 package la.droid.qr;
 
-import la.droid.qr.R;
+import com.example.parte.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
