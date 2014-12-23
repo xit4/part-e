@@ -28,6 +28,8 @@
         </activity>
         <activity android:name="la.droid.qr.Scan" >
         </activity>
+        <activity android:name=".PartyManager" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
 package com.example.parte;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -77,16 +77,6 @@ public class CreateParty extends Activity {
 			}
 		});
 
-		Button create = (Button) findViewById(R.id.button_createparty);
-		create.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
 	}
 
 	public void setDateFromDialog(Context context, String title,
@@ -121,5 +111,13 @@ public class CreateParty extends Activity {
 
 		AlertDialog d = builder.create();
 		d.show();
+	}
+
+	public void partyManager(View view) {
+
+		Intent intent = new Intent(this, PartyManager.class);		//need to store details about the party, maybe using shared preferences?
+		startActivity(intent);
+		finish();
+
 	}
 }
