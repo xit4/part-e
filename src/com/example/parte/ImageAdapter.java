@@ -11,11 +11,11 @@ import android.widget.TextView;
 public class ImageAdapter extends BaseAdapter {
 
 	private Context context;
-	private final String[] mobileValues;
+	private final String[] tasks;
 
-	public ImageAdapter(Context context, String[] mobileValues) {
+	public ImageAdapter(Context context, String[] tasks) {
 		this.context = context;
-		this.mobileValues = mobileValues;
+		this.tasks = tasks;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,15 +35,15 @@ public class ImageAdapter extends BaseAdapter {
 			// set value into textview
 			TextView textView = (TextView) gridView
 					.findViewById(R.id.grid_item_label);
-			textView.setText(mobileValues[position]);
+			textView.setText(tasks[position]);
 
 			// set image based on selected text
 			ImageView imageView = (ImageView) gridView
 					.findViewById(R.id.grid_item_image);
 
-			String mobile = mobileValues[position];
+			String mobile = tasks[position];
 
-			if (mobile.equals("Who Am I")) {
+			if (mobile.equals("Who Am I?")) {
 				imageView.setImageResource(R.drawable.ic_action_help);
 				textView.setText("Who Am I");
 			} else if (mobile.equals("Gallery")) {
@@ -66,8 +66,8 @@ public class ImageAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tasks.length;
+		
 	}
 
 	@Override

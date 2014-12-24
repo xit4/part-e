@@ -1,6 +1,5 @@
 package com.example.parte;
 
-import la.droid.qr.*;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -15,6 +14,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	static final int REQUEST_QR_SCAN = 2;
+	static final int REQUEST_LOGIN = 1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,7 +24,7 @@ public class MainActivity extends Activity {
 
 		if (!authentication) {
 			Intent intent = new Intent(this, LogInActivity.class);
-			startActivityForResult(intent, 1);
+			startActivityForResult(intent, REQUEST_LOGIN);
 		} else {
 			String User = new String("BANANA");
 			setContentView(R.layout.activity_main);
@@ -59,7 +60,7 @@ public class MainActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		switch (requestCode) {
-		case 1:
+		case REQUEST_LOGIN:
 			if (resultCode == RESULT_OK) {
 
 				String User = data.getStringExtra("USER");
@@ -86,7 +87,7 @@ public class MainActivity extends Activity {
 				});
 			}
 			break;
-		case 2:
+		case REQUEST_QR_SCAN:
 			if (resultCode == RESULT_OK) {
 				String result = data.getExtras().getString(la.droid.qr.Services.RESULT);
 			} else if (resultCode == RESULT_CANCELED) {
@@ -111,7 +112,7 @@ public class MainActivity extends Activity {
 	protected void joinParty() {
 		Intent qrDroid = new Intent(la.droid.qr.Services.SCAN);
 		try {
-			startActivityForResult(qrDroid, 2);
+			startActivityForResult(qrDroid, REQUEST_QR_SCAN);
 		} catch (ActivityNotFoundException activity) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri
