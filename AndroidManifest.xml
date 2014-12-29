@@ -12,6 +12,8 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -26,14 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogInActivity" >
-        </activity>
-        <activity android:name=".CreateParty" >
-        </activity>
-        <activity android:name="la.droid.qr.Scan" >
-        </activity>
-        <activity android:name=".PartyManager" >
-        </activity>
+        <activity android:name=".LogInActivity" />
+        <activity android:name=".CreateParty" />
+        <activity android:name="la.droid.qr.Scan" />
+        <activity android:name=".PartyManager" />
+        <activity android:name=".ShowQR" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,8 +71,18 @@ public class PartyManager extends Activity {
 																				// encode
 																				// the
 																				// "party network stuff"
+
+					qrDroid.putExtra(la.droid.qr.Services.CODE,
+							"This will be QR code content"); // String to encode
+																// (group name
+																// etc...)
+
+					qrDroid.putExtra(la.droid.qr.Services.IMAGE, true);
+
+					qrDroid.putExtra( la.droid.qr.Services.SIZE , 0);		// zero means fit screen (should), otherwis is the size in pixels
+					
 					try {
-						startActivityForResult(qrDroid, REQUEST_QR_ENCODE);		//TODO?
+						startActivityForResult(qrDroid, REQUEST_QR_ENCODE);
 					} catch (ActivityNotFoundException activity) {
 						Intent intent = new Intent(Intent.ACTION_VIEW);
 						intent.setData(Uri
@@ -103,7 +114,19 @@ public class PartyManager extends Activity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 
-			case REQUEST_QR_ENCODE:
+			case REQUEST_QR_ENCODE: // not really sure about this part
+				if ((data != null) && (data.getExtras() != null)) {
+					// Read result from QR Droid (it's stored in
+					// la.droid.qr.result)
+					// Result is a string or a bitmap, according what was
+					// requested
+					
+					Intent intent = new Intent(this,ShowQR.class);
+					intent.putExtras(data);
+					startActivity(intent);
+					
+				}
+
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
@@ -111,5 +134,4 @@ public class PartyManager extends Activity {
 			}
 		}
 	}
-
 }
