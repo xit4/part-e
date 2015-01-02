@@ -2,7 +2,9 @@ package com.example.parte;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,11 +16,19 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	public static final String MyPREFERENCES = "UserPartyPref";
+
 	static final int REQUEST_QR_SCAN = 2;
 	static final int REQUEST_LOGIN = 1;
+	public static final String User = "username";
+	public static final String LoginError = "Please login first";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 
 		boolean authentication = false; // authentication stuff
 
@@ -26,10 +36,10 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, LogInActivity.class);
 			startActivityForResult(intent, REQUEST_LOGIN);
 		} else {
-			String User = new String("BANANA");
+
 			setContentView(R.layout.activity_main);
 			TextView top = (TextView) findViewById(R.id.top);
-			top.setText("WELCOME " + User);
+			top.setText("WELCOME " + sp.getString(User, LoginError));
 
 			final Button create = (Button) findViewById(R.id.button_create);
 			create.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +68,20 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 
 		switch (requestCode) {
 		case REQUEST_LOGIN:
 			if (resultCode == RESULT_OK) {
 
-				String User = data.getStringExtra("USER");
-				Toast.makeText(this, "Hello " + User + "!", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this,
+						"Hello " + sp.getString(User, LoginError) + "!",
+						Toast.LENGTH_SHORT).show();
 				setContentView(R.layout.activity_main);
 				TextView top = (TextView) findViewById(R.id.top);
-				top.setText("WELCOME " + User);
+				top.setText("WELCOME " + sp.getString(User, LoginError));
 
 				final Button create = (Button) findViewById(R.id.button_create);
 				create.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +102,8 @@ public class MainActivity extends Activity {
 			break;
 		case REQUEST_QR_SCAN:
 			if (resultCode == RESULT_OK) {
-				String result = data.getExtras().getString(la.droid.qr.Services.RESULT);
+				String result = data.getExtras().getString(
+						la.droid.qr.Services.RESULT);
 			} else if (resultCode == RESULT_CANCELED) {
 			}
 			break;

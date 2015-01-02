@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +17,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class CreateParty extends Activity {
+
+	public static final String MyPREFERENCES = "UserPartyPref";
+
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_party);
+
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 
 		final TextView From;
 		final TextView To;
@@ -76,6 +83,8 @@ public class CreateParty extends Activity {
 
 			}
 		});
+		
+		
 
 	}
 
@@ -115,7 +124,12 @@ public class CreateParty extends Activity {
 
 	public void partyManager(View view) {
 
-		Intent intent = new Intent(this, PartyManager.class);		//need to store details about the party, maybe using shared preferences?
+		Intent intent = new Intent(this, PartyManager.class); // need to store
+																// details about
+																// the party,
+																// maybe using
+																// shared
+																// preferences?
 		startActivity(intent);
 		finish();
 
