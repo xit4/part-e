@@ -1,8 +1,12 @@
 package com.example.parte;
 
+import java.text.SimpleDateFormat;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,7 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PartyManager extends Activity {
+	
 
+	public static final String MyPREFERENCES = "UserPartyPref";
+	public static final String StartingDate = "StartingDate";
+	public static final String EndingDate = "EndingDate";
+	
 	static final int REQUEST_QR_ENCODE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
 
@@ -30,9 +39,14 @@ public class PartyManager extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.party_manager);
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
+		
+		Toast.makeText(this,"Party starts : " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp.getLong(StartingDate, -1)),Toast.LENGTH_SHORT).show();
+		Toast.makeText(this,"Party ends : " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp.getLong(EndingDate, -1)),Toast.LENGTH_SHORT).show();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 

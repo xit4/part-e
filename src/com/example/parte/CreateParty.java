@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +20,15 @@ import android.widget.TimePicker;
 public class CreateParty extends Activity {
 
 	public static final String MyPREFERENCES = "UserPartyPref";
-
+	public static final String StartingDate = "StartingDate";
+	public static final String EndingDate = "EndingDate";
+	public static final String PartyName = "PartyName";
+	
+	
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_party);
-
-		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
-				Context.MODE_PRIVATE);
 
 		final TextView From;
 		final TextView To;
@@ -49,7 +51,7 @@ public class CreateParty extends Activity {
 		hour = c.get(Calendar.HOUR_OF_DAY);
 
 		From.setText(new StringBuilder().append(day).append("/").append(month)
-				.append("/").append(year).append(" "));
+				.append("/").append(year));
 
 		Start.setText(new StringBuilder().append(hour).append(":")
 				.append(minutes));
@@ -58,7 +60,7 @@ public class CreateParty extends Activity {
 			day++;
 
 		To.setText(new StringBuilder().append(day).append("/").append(month)
-				.append("/").append(year).append(" "));
+				.append("/").append(year));
 
 		End.setText(new StringBuilder().append((hour + 6) % 24).append(":")
 				.append(minutes));
@@ -68,7 +70,6 @@ public class CreateParty extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
 				setDateFromDialog(CreateParty.this, "Start of Party", From,
 						Start);
 
@@ -84,7 +85,7 @@ public class CreateParty extends Activity {
 			}
 		});
 		
-		
+			
 
 	}
 
@@ -122,14 +123,49 @@ public class CreateParty extends Activity {
 		d.show();
 	}
 
-	public void partyManager(View view) {
+	public void partyManager(View view) {						//used by the onClick attribute in the xml file
 
-		Intent intent = new Intent(this, PartyManager.class); // need to store
+		Intent intent = new Intent(this, PartyManager.class);   // need to store
 																// details about
 																// the party,
 																// maybe using
 																// shared
 																// preferences?
+		
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
+		
+
+		TextView From = (TextView) findViewById(R.id.from_et);
+		TextView To = (TextView) findViewById(R.id.to_et);
+
+		TextView Start = (TextView) findViewById(R.id.fromH_et);
+		TextView End = (TextView) findViewById(R.id.toH_et);
+		
+		TextView Title = (TextView) findViewById(R.id.creation_et);
+		
+		String[] FromDate = From.getText().toString().split("/");
+		String[] FromHour = Start.getText().toString().split(":");
+		
+		String[] ToDate = To.getText().toString().split("/");
+		String[] ToHour = End.getText().toString().split(":");
+		
+		Calendar FromC = Calendar.getInstance();
+		FromC.set(Integer.parseInt(FromDate[2]), Integer.parseInt(FromDate[1])-1, Integer.parseInt(FromDate[0]), Integer.parseInt(FromHour[0]), Integer.parseInt(FromHour[1]));
+		
+		Calendar ToC = Calendar.getInstance();
+		ToC.set(Integer.parseInt(ToDate[2]), Integer.parseInt(ToDate[1])-1, Integer.parseInt(ToDate[0]), Integer.parseInt(ToHour[0]), Integer.parseInt(ToHour[1]));
+		
+		//parse textview and add to shared preference the date in milliseconds. It would be easier to use it later on (maybe)
+		
+		
+		Editor editor = sp.edit();
+		editor.putLong(StartingDate, FromC.getTimeInMillis());
+		editor.putLong(EndingDate, ToC.getTimeInMillis());
+		editor.putString(PartyName, Title.getText().toString());
+		editor.commit();
+		
+		
 		startActivity(intent);
 		finish();
 
