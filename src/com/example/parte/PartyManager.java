@@ -23,12 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PartyManager extends Activity {
-	
 
 	public static final String MyPREFERENCES = "UserPartyPref";
 	public static final String StartingDate = "StartingDate";
 	public static final String EndingDate = "EndingDate";
-	
+	public static final String PartyName = "PartyName";
+	public static final String User = "username";
+
 	static final int REQUEST_QR_ENCODE = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
 
@@ -44,9 +45,19 @@ public class PartyManager extends Activity {
 
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
-		
-		Toast.makeText(this,"Party starts : " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp.getLong(StartingDate, -1)),Toast.LENGTH_SHORT).show();
-		Toast.makeText(this,"Party ends : " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp.getLong(EndingDate, -1)),Toast.LENGTH_SHORT).show();
+
+		Toast.makeText(
+				this,
+				"Party starts : "
+						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+								.getLong(StartingDate, -1)), Toast.LENGTH_SHORT)
+				.show();
+		Toast.makeText(
+				this,
+				"Party ends : "
+						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+								.getLong(EndingDate, -1)), Toast.LENGTH_SHORT)
+				.show();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -86,15 +97,17 @@ public class PartyManager extends Activity {
 																				// the
 																				// "party network stuff"
 
-					qrDroid.putExtra(la.droid.qr.Services.CODE,
-							"This will be QR code content"); // String to encode
-																// (group name
-																// etc...)
+					qrDroid.putExtra(
+							la.droid.qr.Services.CODE,
+							sp.getString(User, "")
+									+ sp.getString(PartyName, "")
+									+ sp.getLong(StartingDate, 0)
+									+ sp.getLong(EndingDate, 0));
 
 					qrDroid.putExtra(la.droid.qr.Services.IMAGE, true);
 
-					qrDroid.putExtra( la.droid.qr.Services.SIZE , 0);		// zero means fit screen (should), otherwis is the size in pixels
-					
+					qrDroid.putExtra(la.droid.qr.Services.SIZE, 0);
+
 					try {
 						startActivityForResult(qrDroid, REQUEST_QR_ENCODE);
 					} catch (ActivityNotFoundException activity) {
@@ -128,17 +141,13 @@ public class PartyManager extends Activity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 
-			case REQUEST_QR_ENCODE: // not really sure about this part
+			case REQUEST_QR_ENCODE:
 				if ((data != null) && (data.getExtras() != null)) {
-					// Read result from QR Droid (it's stored in
-					// la.droid.qr.result)
-					// Result is a string or a bitmap, according what was
-					// requested
-					
-					Intent intent = new Intent(this,ShowQR.class);
+
+					Intent intent = new Intent(this, ShowQR.class);
 					intent.putExtras(data);
 					startActivity(intent);
-					
+
 				}
 
 				break;
