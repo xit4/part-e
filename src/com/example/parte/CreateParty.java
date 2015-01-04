@@ -173,7 +173,7 @@ public class CreateParty extends Activity {
 		editor.putString(PartyName, Title.getText().toString());
 		editor.commit();
 
-		CheckBox notify = (CheckBox) view.findViewById(R.id.checkNotify);
+		CheckBox notify = (CheckBox) findViewById(R.id.checkNotify);
 
 		if (notify.isChecked()) {
 

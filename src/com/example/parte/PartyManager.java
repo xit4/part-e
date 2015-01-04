@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -13,22 +12,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class PartyManager extends Activity {
+public class PartyManager extends ActionBarActivity {
 
 	public static final String MyPREFERENCES = "UserPartyPref";
 	public static final String StartingDate = "StartingDate";
@@ -48,8 +44,14 @@ public class PartyManager extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.party_manager);
-		getActionBar().setTitle(sp.getString(PartyName, "default"));
-
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+		
+		getSupportActionBar().setTitle(sp.getString(PartyName, "default"));	
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
 
@@ -244,17 +246,17 @@ public class PartyManager extends Activity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
-				if ((data != null) && (data.getExtras() != null)) {
-					Toast.makeText(
-							this,
-							"Image saved to:\n"
-									+ data.getStringExtra(MediaStore.EXTRA_OUTPUT),
-							Toast.LENGTH_LONG).show();
-				} else {
-					Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
-							.show();
-
-				}
+//				if ((data != null) && (data.getExtras() != null)) {
+//					Toast.makeText(
+//							this,
+//							"Image saved to:\n"
+//									+ data.getStringExtra(MediaStore.EXTRA_OUTPUT),
+//							Toast.LENGTH_LONG).show();
+//				} else {
+//					Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
+//							.show();
+//
+//				}
 				break;
 			}
 		}
