@@ -33,6 +33,7 @@
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
         <activity android:name=".ShowQR" />
+        <activity android:name=".ShowGallery" />
     </application>
 
 </manifest>
