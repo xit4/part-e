@@ -35,6 +35,7 @@
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
         <activity android:name=".ShowQR" />
+        <activity android:name=".ShowGallery" />
         <activity android:name=".Gallery" />
         <activity android:name=".WhoAmI" />
     </application>

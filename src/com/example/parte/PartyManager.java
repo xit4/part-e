@@ -81,7 +81,7 @@ public class PartyManager extends Activity {
 
 				case 1:
 
-					Intent iG = new Intent(getBaseContext(), Gallery.class);
+					Intent iG = new Intent(getBaseContext(), ShowGallery.class);
 					startActivity(iG);
 
 					break;

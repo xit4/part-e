@@ -1,11 +1,14 @@
 package com.example.parte;
 
+import java.text.SimpleDateFormat;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ShowQR extends Activity {
 
@@ -34,10 +37,10 @@ public class ShowQR extends Activity {
 		// TODO: After using this QR code, you should move it to a
 		// permanent location, or delete it
 
-		//
-		// String result =
-		// data.getExtras().getString(la.droid.qr.Services.RESULT);
-		// //Just set result to EditText to be able to view it
-		// txtResult.setText( result );
+		
+//		 String result =
+//		 i.getExtras().getString(la.droid.qr.Services.RESULT);
+//		 //Just set result to a toast to be able to view it
+//		 Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
 	}
 }
