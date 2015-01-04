@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -34,11 +34,14 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
-        <activity android:name=".ShowQR" />
+        <activity
+            android:name=".ShowQR"
+            android:parentActivityName=".PartyManager" />
         <activity
             android:name=".ShowGallery"
             android:parentActivityName=".PartyManager" />
-        <activity android:name=".WhoAmI" />
-    </application>
-
+        <activity
+            android:name=".WhoAmI"
+            android:parentActivityName=".PartyManager" />
+</application>
 </manifest>

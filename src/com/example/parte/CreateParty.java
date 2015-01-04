@@ -5,9 +5,6 @@ import java.util.Calendar;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,8 +12,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -172,26 +167,6 @@ public class CreateParty extends Activity {
 		editor.putLong(EndingDate, ToC.getTimeInMillis());
 		editor.putString(PartyName, Title.getText().toString());
 		editor.commit();
-
-		CheckBox notify = (CheckBox) findViewById(R.id.checkNotify);
-
-		if (notify.isChecked()) {
-
-
-			Notification n = new Notification.Builder(this)
-					.setContentTitle(
-							getResources().getString(
-									R.string.notification_title))
-					.setContentText(
-							getResources()
-									.getString(R.string.notification_text))
-					.setWhen(ToC.getTimeInMillis() - (1000 * 60 * 30))
-					.build();
-			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-			notificationManager.notify(0, n);
-
-		}
 
 		startActivity(intent);
 		finish();
