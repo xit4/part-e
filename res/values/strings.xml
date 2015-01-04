@@ -16,6 +16,9 @@
     <string name="fromH_box"> At: </string>
     <string name="toH_box"> At: </string>
     <string name="qr_image"> qr_invite </string>
+    <string name="action_camera"> camera </string>
+    
+    
 
     <!-- Titles -->
     <string name="scan">Scan</string>

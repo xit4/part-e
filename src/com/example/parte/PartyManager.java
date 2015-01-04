@@ -13,6 +13,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,7 +42,7 @@ public class PartyManager extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		final String[] PARTY_TASK = new String[] { "Who Am I?", "Gallery",
-				"Invite", "Take Picture" };
+				"Invite"};
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.party_manager);
@@ -49,18 +52,18 @@ public class PartyManager extends Activity {
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
 
-//		Toast.makeText(
-//				this,
-//				"Party starts : "
-//						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
-//								.getLong(StartingDate, -1)), Toast.LENGTH_SHORT)
-//				.show();
-//		Toast.makeText(
-//				this,
-//				"Party ends : "
-//						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
-//								.getLong(EndingDate, -1)), Toast.LENGTH_SHORT)
-//				.show();
+		// Toast.makeText(
+		// this,
+		// "Party starts : "
+		// + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+		// .getLong(StartingDate, -1)), Toast.LENGTH_SHORT)
+		// .show();
+		// Toast.makeText(
+		// this,
+		// "Party ends : "
+		// + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+		// .getLong(EndingDate, -1)), Toast.LENGTH_SHORT)
+		// .show();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -122,49 +125,104 @@ public class PartyManager extends Activity {
 					}
 
 					break;
-				case 3:
-
-					File mediaStorageDir = new File(
-							Environment
-									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-							"Part-E" + File.separator + sp.getString(User, "defaultUser") + File.separator
-									+ sp.getString(PartyName, "defaultParty"));
-
-					if (!mediaStorageDir.exists()) {
-						if (!mediaStorageDir.mkdirs())
-							Toast.makeText(getBaseContext(),
-									"failed to create directory",
-									Toast.LENGTH_LONG).show();
-
-					}
-
-					String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-							.format(new Date());
-					File media = new File(mediaStorageDir.getPath()
-							+ File.separator + "IMG_" + timeStamp + ".jpg");
-
-					Uri uriSavedImage = Uri.fromFile(media);
-
-					Toast.makeText(getBaseContext(),
-							"Image 1 saved to:\n" + uriSavedImage.getPath(),
-							Toast.LENGTH_LONG).show();
-
-					Intent takePictureIntent = new Intent(
-							MediaStore.ACTION_IMAGE_CAPTURE);
-
-					takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-							uriSavedImage);
-					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-						startActivityForResult(takePictureIntent,
-								REQUEST_IMAGE_CAPTURE);
-					}
-
-					break;
+				/*
+				 * case 3:
+				 * 
+				 * File mediaStorageDir = new File( Environment
+				 * .getExternalStoragePublicDirectory
+				 * (Environment.DIRECTORY_PICTURES), "Part-E" + File.separator +
+				 * sp.getString(User, "defaultUser") + File.separator +
+				 * sp.getString(PartyName, "defaultParty"));
+				 * 
+				 * if (!mediaStorageDir.exists()) { if
+				 * (!mediaStorageDir.mkdirs()) Toast.makeText(getBaseContext(),
+				 * "failed to create directory", Toast.LENGTH_LONG).show();
+				 * 
+				 * }
+				 * 
+				 * String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+				 * .format(new Date()); File media = new
+				 * File(mediaStorageDir.getPath() + File.separator + "IMG_" +
+				 * timeStamp + ".jpg");
+				 * 
+				 * Uri uriSavedImage = Uri.fromFile(media);
+				 * 
+				 * Toast.makeText(getBaseContext(), "Image 1 saved to:\n" +
+				 * uriSavedImage.getPath(), Toast.LENGTH_LONG).show();
+				 * 
+				 * Intent takePictureIntent = new Intent(
+				 * MediaStore.ACTION_IMAGE_CAPTURE);
+				 * 
+				 * takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+				 * uriSavedImage); if
+				 * (takePictureIntent.resolveActivity(getPackageManager()) !=
+				 * null) { startActivityForResult(takePictureIntent,
+				 * REQUEST_IMAGE_CAPTURE); }
+				 * 
+				 * break;
+				 */
 
 				}
 
 			}
 		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.party_manager_bar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
+		switch (item.getItemId()) {
+		case R.id.action_camera:
+			File mediaStorageDir = new File(
+					Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+					"Part-E" + File.separator
+							+ sp.getString(User, "defaultUser")
+							+ File.separator
+							+ sp.getString(PartyName, "defaultParty"));
+
+			if (!mediaStorageDir.exists()) {
+				if (!mediaStorageDir.mkdirs())
+					Toast.makeText(getBaseContext(),
+							"failed to create directory", Toast.LENGTH_LONG)
+							.show();
+
+			}
+
+			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+					.format(new Date());
+			File media = new File(mediaStorageDir.getPath() + File.separator
+					+ "IMG_" + timeStamp + ".jpg");
+
+			Uri uriSavedImage = Uri.fromFile(media);
+
+//			Toast.makeText(getBaseContext(),
+//					"Image 1 saved to:\n" + uriSavedImage.getPath(),
+//					Toast.LENGTH_LONG).show();
+
+			Intent takePictureIntent = new Intent(
+					MediaStore.ACTION_IMAGE_CAPTURE);
+
+			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+			if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+				startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+			}
+
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
