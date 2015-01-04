@@ -1,12 +1,18 @@
 package com.example.parte;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -24,7 +30,7 @@ public class ShowGallery extends Activity {
 
 		int currentPosition;
 		File[] file;
-		Integer[] imageIDs;
+		ArrayList<String> imageIDs= new ArrayList<String>();
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -32,17 +38,22 @@ public class ShowGallery extends Activity {
 			
 			final SharedPreferences sp = getSharedPreferences(MainActivity.MyPREFERENCES,
 					Context.MODE_PRIVATE);
-			String DirectoryPath = ""+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
-					"Part-E" + File.separator + sp.getString(MainActivity.User, "defaultUser") + File.separator
-					+ sp.getString(MainActivity.PartyName, "defaultParty") +"";
+			String DirectoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+ File.separator
+					+ "Part-E" + File.separator + sp.getString(MainActivity.User, "defaultUser") + File.separator
+					+ sp.getString(MainActivity.PartyName, "defaultParty");
 		    File f = new File(DirectoryPath);
 		    
-		    if(f.mkdirs())    	
-		    	file = f.listFiles();
-
-		    for(int i=0;i<file.length;i++)
-		    imageIDs[i] = getResources().getIdentifier(file[i].getAbsolutePath(), "drawable",this.getPackageName()	);
-			
+		    if (!f.exists()) {
+		    	f.mkdirs();
+		    }
+		    		
+		    file = f.listFiles();
+		    
+		    for(int i=0;i<file.length;i++){
+//		    	Bitmap myBitmap =BitmapFactory.decodeFile(file[i].getAbsolutePath());
+		    imageIDs.add(file[i].getAbsolutePath());
+		    
+		    }
 				// Note that Gallery view is deprecated in Android 4.1---
 				Gallery gallery = (Gallery) findViewById(R.id.gallery1);
 				ImageView imageView = (ImageView) findViewById(R.id.image1);
@@ -52,14 +63,14 @@ public class ShowGallery extends Activity {
 				    	ImageView imageView = (ImageView) findViewById(R.id.image1);
 						currentPosition-=1;
 						if(currentPosition <0) currentPosition =0;
-						imageView.setImageResource(imageIDs[currentPosition]);
+						imageView.setImageURI(Uri.parse(imageIDs.get(currentPosition)));
 				    }
 				    @Override
 				    public void onSwipeLeft() {
 				    	ImageView imageView = (ImageView) findViewById(R.id.image1);
 						currentPosition+=1;
-						if(currentPosition >=imageIDs.length) currentPosition--;
-						imageView.setImageResource(imageIDs[currentPosition]);
+						if(currentPosition >=imageIDs.size()) currentPosition--;
+						imageView.setImageURI(Uri.parse(imageIDs.get(currentPosition)));
 				    }
 				    
 				});
@@ -71,7 +82,7 @@ public class ShowGallery extends Activity {
 						// display the images selected
 						ImageView imageView = (ImageView) findViewById(R.id.image1);
 						currentPosition=position;
-						imageView.setImageResource(imageIDs[position]);
+						imageView.setImageURI(Uri.parse(imageIDs.get(currentPosition)));
 				}
 			});
 		}
@@ -89,7 +100,7 @@ public class ShowGallery extends Activity {
 			}
 			// returns the number of images
 			public int getCount() {
-				return imageIDs.length;
+				return imageIDs.size();
 			}
 			// returns the ID of an item
 			public Object getItem(int position) {
@@ -102,7 +113,8 @@ public class ShowGallery extends Activity {
 			// returns an ImageView view
 			public View getView(int position, View convertView, ViewGroup parent) {
 				ImageView imageView = new ImageView(context);
-				imageView.setImageResource(imageIDs[position]);
+				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageIDs.get(position)), 200, 200);
+				imageView.setImageBitmap(ThumbImage);
 				imageView.setLayoutParams(new Gallery.LayoutParams(200, 200));
 				imageView.setBackgroundResource(itemBackground);
 				return imageView;
