@@ -1,6 +1,8 @@
 package com.example.parte;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,8 +123,31 @@ public class PartyManager extends Activity {
 
 					break;
 				case 3:
+
+					File mediaStorageDir = new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+							"Part-E" + File.separator + User + File.separator
+									+ PartyName);
+
+					// if (!mediaStorageDir.exists()) {
+					// if (!mediaStorageDir.mkdirs())
+					// Log.d("MyCameraApp", "failed to create directory");
+					//
+					// }
+
+					String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+							.format(new Date());
+					File media = new File(mediaStorageDir.getPath()
+							+ File.separator + "IMG_" + timeStamp + ".jpg");
+
+					Uri uriSavedImage = Uri.fromFile(media);
+
 					Intent takePictureIntent = new Intent(
 							MediaStore.ACTION_IMAGE_CAPTURE);
+
+					takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+							uriSavedImage);
 					if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 						startActivityForResult(takePictureIntent,
 								REQUEST_IMAGE_CAPTURE);
@@ -153,6 +179,11 @@ public class PartyManager extends Activity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
+
+				Toast.makeText(this, "Image saved to:\n" +
+	                     data.getData(), Toast.LENGTH_LONG).show();
+
+
 				break;
 			}
 		}
