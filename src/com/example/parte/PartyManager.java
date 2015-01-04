@@ -130,11 +130,13 @@ public class PartyManager extends Activity {
 							"Part-E" + File.separator + User + File.separator
 									+ PartyName);
 
-					// if (!mediaStorageDir.exists()) {
-					// if (!mediaStorageDir.mkdirs())
-					// Log.d("MyCameraApp", "failed to create directory");
-					//
-					// }
+					if (!mediaStorageDir.exists()) {
+						if (!mediaStorageDir.mkdirs())
+							Toast.makeText(getBaseContext(),
+									"failed to create directory",
+									Toast.LENGTH_LONG).show();
+
+					}
 
 					String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 							.format(new Date());
@@ -142,6 +144,10 @@ public class PartyManager extends Activity {
 							+ File.separator + "IMG_" + timeStamp + ".jpg");
 
 					Uri uriSavedImage = Uri.fromFile(media);
+
+					Toast.makeText(getBaseContext(),
+							"Image 1 saved to:\n" + uriSavedImage.getPath(),
+							Toast.LENGTH_LONG).show();
 
 					Intent takePictureIntent = new Intent(
 							MediaStore.ACTION_IMAGE_CAPTURE);
@@ -179,11 +185,17 @@ public class PartyManager extends Activity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
+				if ((data != null) && (data.getExtras() != null)) {
+					Toast.makeText(
+							this,
+							"Image saved to:\n"
+									+ data.getStringExtra(MediaStore.EXTRA_OUTPUT),
+							Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
+							.show();
 
-				Toast.makeText(this, "Image saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();
-
-
+				}
 				break;
 			}
 		}
