@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	static final int REQUEST_QR_SCAN = 2;
 	static final int REQUEST_LOGIN = 1;
 	public static final String User = "username";
+	public static final String PartyName = "PartyName";
 	public static final String LoginError = "Please login first";
 
 	@Override

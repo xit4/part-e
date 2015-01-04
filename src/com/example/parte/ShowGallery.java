@@ -1,8 +1,12 @@
 package com.example.parte;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -17,20 +21,27 @@ import android.widget.ImageView;
 
 @SuppressWarnings("deprecation")
 public class ShowGallery extends Activity {
-		
-		//the images to display
-		//TODO: show the proper images not these test images
-		Integer[] imageIDs = {
-				R.drawable.assign,
-				R.drawable.ic_launcher,
-				R.drawable.icon_invite,
-				R.drawable.ic_action_help
-		};
+
 		int currentPosition;
+		File[] file;
+		Integer[] imageIDs;
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.gallery);
+			
+			final SharedPreferences sp = getSharedPreferences(MainActivity.MyPREFERENCES,
+					Context.MODE_PRIVATE);
+			String DirectoryPath = ""+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
+					"Part-E" + File.separator + sp.getString(MainActivity.User, "defaultUser") + File.separator
+					+ sp.getString(MainActivity.PartyName, "defaultParty") +"";
+		    File f = new File(DirectoryPath);
+		    
+		    if(f.mkdirs())    	
+		    	file = f.listFiles();
+
+		    for(int i=0;i<file.length;i++)
+		    imageIDs[i] = getResources().getIdentifier(file[i].getAbsolutePath(), "drawable",this.getPackageName()	);
 			
 				// Note that Gallery view is deprecated in Android 4.1---
 				Gallery gallery = (Gallery) findViewById(R.id.gallery1);
