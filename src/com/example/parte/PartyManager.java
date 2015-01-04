@@ -244,17 +244,6 @@ public class PartyManager extends Activity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
-				if ((data != null) && (data.getExtras() != null)) {
-					Toast.makeText(
-							this,
-							"Image saved to:\n"
-									+ data.getStringExtra(MediaStore.EXTRA_OUTPUT),
-							Toast.LENGTH_LONG).show();
-				} else {
-					Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
-							.show();
-
-				}
 				break;
 			}
 		}
