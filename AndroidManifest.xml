@@ -29,10 +29,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogInActivity" />
-        <activity android:name=".CreateParty" />
+        <activity android:name=".CreateParty" 
+            android:parentActivityName=".MainActivity" />
+            
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
         <activity android:name=".ShowQR" />
+        <activity android:name=".Gallery" />
+        <activity android:name=".WhoAmI" />
     </application>
 
 </manifest>

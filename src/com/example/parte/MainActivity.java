@@ -1,5 +1,7 @@
 package com.example.parte;
 
+import java.text.SimpleDateFormat;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -101,9 +103,15 @@ public class MainActivity extends Activity {
 			}
 			break;
 		case REQUEST_QR_SCAN:
+			
 			if (resultCode == RESULT_OK) {
+				
 				String result = data.getExtras().getString(
 						la.droid.qr.Services.RESULT);
+				
+				Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
+
+				
 			} else if (resultCode == RESULT_CANCELED) {
 			}
 			break;
