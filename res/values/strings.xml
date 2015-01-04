@@ -17,8 +17,7 @@
     <string name="toH_box"> At: </string>
     <string name="qr_image"> qr_invite </string>
     <string name="action_camera"> camera </string>
-    
-    
+    <string name="notify_msg"> Allow notification 30 minutes before party? </string>
 
     <!-- Titles -->
     <string name="scan">Scan</string>
@@ -41,5 +40,9 @@
     <string name="url_market">http://market.android.com/details?id=la.droid.qr</string>
     <string name="url_direct">http://droid.la/apk/qr/</string>
     <string name="url_source">http://qrdroid.com/services</string>
+
+    <!-- Notification -->
+    <string name="notification_title">Party Starting!</string>
+    <string name="notification_text">The party is starting in 30 min, nuy alcol and dont be late!</string>
 
 </resources>
