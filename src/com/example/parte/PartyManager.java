@@ -42,12 +42,13 @@ public class PartyManager extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		final String[] PARTY_TASK = new String[] { "Who Am I?", "Gallery",
-				"Invite"};
+				"Invite" };
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.party_manager);
-		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
-				Context.MODE_PRIVATE);
+		getActionBar().setTitle(sp.getString(PartyName, "default"));
 
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
@@ -206,9 +207,9 @@ public class PartyManager extends Activity {
 
 			Uri uriSavedImage = Uri.fromFile(media);
 
-//			Toast.makeText(getBaseContext(),
-//					"Image 1 saved to:\n" + uriSavedImage.getPath(),
-//					Toast.LENGTH_LONG).show();
+			// Toast.makeText(getBaseContext(),
+			// "Image 1 saved to:\n" + uriSavedImage.getPath(),
+			// Toast.LENGTH_LONG).show();
 
 			Intent takePictureIntent = new Intent(
 					MediaStore.ACTION_IMAGE_CAPTURE);
