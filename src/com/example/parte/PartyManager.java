@@ -49,18 +49,18 @@ public class PartyManager extends Activity {
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
 
-		Toast.makeText(
-				this,
-				"Party starts : "
-						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
-								.getLong(StartingDate, -1)), Toast.LENGTH_SHORT)
-				.show();
-		Toast.makeText(
-				this,
-				"Party ends : "
-						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
-								.getLong(EndingDate, -1)), Toast.LENGTH_SHORT)
-				.show();
+//		Toast.makeText(
+//				this,
+//				"Party starts : "
+//						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+//								.getLong(StartingDate, -1)), Toast.LENGTH_SHORT)
+//				.show();
+//		Toast.makeText(
+//				this,
+//				"Party ends : "
+//						+ new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sp
+//								.getLong(EndingDate, -1)), Toast.LENGTH_SHORT)
+//				.show();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -127,8 +127,8 @@ public class PartyManager extends Activity {
 					File mediaStorageDir = new File(
 							Environment
 									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-							"Part-E" + File.separator + User + File.separator
-									+ PartyName);
+							"Part-E" + File.separator + sp.getString(User, "defaultUser") + File.separator
+									+ sp.getString(PartyName, "defaultParty"));
 
 					if (!mediaStorageDir.exists()) {
 						if (!mediaStorageDir.mkdirs())
