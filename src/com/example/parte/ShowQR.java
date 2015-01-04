@@ -19,7 +19,7 @@ public class ShowQR extends Activity {
 		
 		ImageView imgResult = (ImageView) findViewById(R.id.img_result);
 		
-		
+		//DON'T NEED TO STORE QR IMAGE
 		
 		String qrCode = i.getExtras().getString(
 				la.droid.qr.Services.RESULT);

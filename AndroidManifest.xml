@@ -34,11 +34,15 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
-        <activity android:name=".ShowQR" />
+        <activity
+            android:name=".ShowQR"
+            android:parentActivityName=".PartyManager" />
         <activity
             android:name=".ShowGallery"
             android:parentActivityName=".PartyManager" />
-        <activity android:name=".WhoAmI" />
+        <activity
+            android:name=".WhoAmI"
+            android:parentActivityName=".PartyManager" />
     </application>
 
 </manifest>
