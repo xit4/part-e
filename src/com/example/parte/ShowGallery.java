@@ -113,7 +113,7 @@ public class ShowGallery extends Activity {
 			// returns an ImageView view
 			public View getView(int position, View convertView, ViewGroup parent) {
 				ImageView imageView = new ImageView(context);
-				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageIDs.get(position)), 200, 200);
+				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageIDs.get(position)), 100, 100);
 				imageView.setImageBitmap(ThumbImage);
 				imageView.setLayoutParams(new Gallery.LayoutParams(200, 200));
 				imageView.setBackgroundResource(itemBackground);
