@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,9 +33,7 @@ public class MainActivity extends Activity {
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
 
-		boolean authentication = false; // authentication stuff
-
-		if (!authentication) {
+		if (sp.getString(User, LoginError).equals(LoginError)) {
 			Intent intent = new Intent(this, LogInActivity.class);
 			startActivityForResult(intent, REQUEST_LOGIN);
 		} else {
@@ -70,7 +69,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
 
@@ -103,15 +102,14 @@ public class MainActivity extends Activity {
 			}
 			break;
 		case REQUEST_QR_SCAN:
-			
+
 			if (resultCode == RESULT_OK) {
-				
+
 				String result = data.getExtras().getString(
 						la.droid.qr.Services.RESULT);
-				
-				Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
 
-				
+				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+
 			} else if (resultCode == RESULT_CANCELED) {
 			}
 			break;
