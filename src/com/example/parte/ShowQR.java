@@ -1,20 +1,27 @@
 package com.example.parte;
 
-import java.text.SimpleDateFormat;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-public class ShowQR extends Activity {
+public class ShowQR extends ActionBarActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_qr);
+		
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+		
+		getSupportActionBar().setTitle("QR Code");	
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Intent i = getIntent();
 		
 		ImageView imgResult = (ImageView) findViewById(R.id.img_result);

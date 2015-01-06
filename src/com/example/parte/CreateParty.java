@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class CreateParty extends Activity {
 
@@ -123,7 +124,15 @@ public class CreateParty extends Activity {
 	@SuppressLint("NewApi")
 	public void partyManager(View view) { // used by the onClick attribute in
 											// the xml file
-
+		
+		TextView Title = (TextView) findViewById(R.id.creation_et);
+		
+		if (Title.getText().toString().equals("") || Title.getText().toString().equals(null)) {
+			Toast.makeText(getApplicationContext(),
+					"The title of the party cannot be empty",
+					Toast.LENGTH_SHORT).show();
+					return;
+		}
 		Intent intent = new Intent(this, PartyManager.class); // need to store
 																// details about
 																// the party,
@@ -139,8 +148,6 @@ public class CreateParty extends Activity {
 
 		TextView Start = (TextView) findViewById(R.id.fromH_et);
 		TextView End = (TextView) findViewById(R.id.toH_et);
-
-		TextView Title = (TextView) findViewById(R.id.creation_et);
 
 		String[] FromDate = From.getText().toString().split("/");
 		String[] FromHour = Start.getText().toString().split(":");

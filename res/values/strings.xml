@@ -4,19 +4,19 @@
     <string name="app_name">partE</string>
     <string name="action_settings">Settings</string>
     <string name="welcome_msg">Welcome to PART-E! Since this is the first time you open this app we need you to type in your name</string>
-    <string name="welcome_msg_box">Name: </string>
+    <string name="welcome_msg_box">Name </string>
     <string name="button_confirm">   Confirm   </string>
     <string name="button_create"> Create </string>
     <string name="button_createparty"> Create party </string>
     <string name="button_join"> Join party </string>
-    <string name="welcome_party_msg"> Time to party!!! But first please insert these dates: </string>
-    <string name="party_msg_box"> Title: </string>
-    <string name="from_box"> From: </string>
-    <string name="to_box"> To: </string>
-    <string name="fromH_box"> At: </string>
-    <string name="toH_box"> At: </string>
+    <string name="welcome_party_msg"> Time to party!!! But first fill in some info: </string>
+    <string name="party_msg_box"> Title </string>
+    <string name="from_box"> From </string>
+    <string name="to_box"> To </string>
+    <string name="fromH_box"> At </string>
+    <string name="toH_box"> At </string>
     <string name="qr_image"> qr_invite </string>
-    <string name="action_camera"> camera </string>
+    <string name="action_camera"> Camera </string>
 
     <!-- Titles -->
     <string name="scan">Scan</string>

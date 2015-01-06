@@ -3,16 +3,17 @@ package com.example.parte;
 import java.io.File;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -26,7 +27,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 
 @SuppressWarnings("deprecation")
-public class ShowGallery extends Activity {
+public class ShowGallery extends ActionBarActivity {
 
 		int currentPosition;
 		File[] file;
@@ -35,6 +36,14 @@ public class ShowGallery extends Activity {
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.gallery);
+			
+			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+	        if (toolbar != null) {
+	            setSupportActionBar(toolbar);
+	        }
+			
+			getSupportActionBar().setTitle("Gallery");	
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			
 			final SharedPreferences sp = getSharedPreferences(MainActivity.MyPREFERENCES,
 					Context.MODE_PRIVATE);
@@ -93,7 +102,7 @@ public class ShowGallery extends Activity {
 			public ImageAdapter(Context c)
 			{
 				context = c;
-				// sets a grey background; wraps around the images
+//				 sets a grey background; wraps around the images
 //				TypedArray a =obtainStyledAttributes(R.styleable.MyGallery);
 //				itemBackground = a.getResourceId(R.styleable.MyGallery_android_galleryItemBackground, 0);
 //				a.recycle();
@@ -113,10 +122,10 @@ public class ShowGallery extends Activity {
 			// returns an ImageView view
 			public View getView(int position, View convertView, ViewGroup parent) {
 				ImageView imageView = new ImageView(context);
-				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageIDs.get(position)), 100, 100);
+				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageIDs.get(position)), 200, 200);
 				imageView.setImageBitmap(ThumbImage);
 				imageView.setLayoutParams(new Gallery.LayoutParams(200, 200));
-				imageView.setBackgroundResource(itemBackground);
+//				imageView.setBackgroundResource(itemBackground);
 				return imageView;
 			}
 		}
