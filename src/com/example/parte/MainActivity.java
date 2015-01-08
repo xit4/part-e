@@ -1,6 +1,8 @@
 package com.example.parte;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -8,13 +10,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +47,37 @@ public class MainActivity extends Activity {
 		} else {
 
 			setContentView(R.layout.activity_main);
+			final ListView listview = (ListView) findViewById(R.id.list_party);
+
+			String DirectoryPath = Environment
+					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+					+ File.separator
+					+ "Part-E"
+					+ File.separator
+					+ sp.getString(MainActivity.User, "defaultUser")
+					+ File.separator;
+			File f = new File(DirectoryPath);
+			File[] file = f.listFiles();
+
+			final ArrayList<String> titles = new ArrayList<String>();
+			
+			
+			
+
+			for (int i = 0; i < file.length; i++) {
+
+				if (file[i].isDirectory()) {
+
+					titles.add(file[i].getName());
+
+				}
+
+			}
+
+			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, titles);
+			listview.setAdapter(adapter);
+
 			TextView top = (TextView) findViewById(R.id.top);
 			top.setText("WELCOME " + sp.getString(User, LoginError));
 
@@ -57,7 +94,7 @@ public class MainActivity extends Activity {
 					joinParty();
 				}
 			});
-			
+
 			final ImageButton fab = (ImageButton) findViewById(R.id.fab);
 			fab.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
