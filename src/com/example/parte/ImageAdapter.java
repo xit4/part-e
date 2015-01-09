@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,11 +25,9 @@ public class ImageAdapter extends BaseAdapter {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		View gridView;
+		View gridView = new View(context);
 
 		if (convertView == null) {
-
-			gridView = new View(context);
 
 			// get layout
 			gridView = inflater.inflate(R.layout.grid_item, null);
@@ -43,6 +43,7 @@ public class ImageAdapter extends BaseAdapter {
 
 			String mobile = tasks[position];
 
+			
 			if (mobile.equals("Who Am I?")) {
 				imageView.setImageResource(R.drawable.ic_action_help);
 				textView.setText("Who Am I");
@@ -56,9 +57,8 @@ public class ImageAdapter extends BaseAdapter {
 				imageView.setImageResource(R.drawable.ic_action_camera);
 				textView.setText("Camera");
 			}
-
 		} else {
-			gridView = (View) convertView;
+	        gridView = (View) convertView;
 		}
 
 		return gridView;
