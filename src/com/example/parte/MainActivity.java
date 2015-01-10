@@ -60,9 +60,6 @@ public class MainActivity extends Activity {
 			File[] file = f.listFiles();
 
 			final ArrayList<String> titles = new ArrayList<String>();
-			
-			
-			
 
 			for (int i = 0; i < file.length; i++) {
 
@@ -95,12 +92,6 @@ public class MainActivity extends Activity {
 				}
 			});
 
-			final ImageButton fab = (ImageButton) findViewById(R.id.fab);
-			fab.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					createParty();
-				}
-			});
 		}
 
 	}
