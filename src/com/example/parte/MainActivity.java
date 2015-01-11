@@ -86,9 +86,9 @@ public class MainActivity extends Activity {
 
 					Editor e = sp.edit();
 					e.putString(PartyName, titles.get(position));
-					Toast.makeText(getBaseContext(),
-							titles.get(position).toString(), Toast.LENGTH_LONG)
-							.show();
+					//Toast.makeText(getBaseContext(),
+					//		titles.get(position).toString(), Toast.LENGTH_LONG)
+					//		.show();
 					e.commit();
 					Intent i = new Intent(getBaseContext(), ShowGallery.class);
 					startActivity(i);
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				setContentView(R.layout.activity_main);
 				TextView top = (TextView) findViewById(R.id.top);
-				top.setText("WELCOME " + sp.getString(User, LoginError));
+				top.setText("Welcome " + sp.getString(User, LoginError));
 
 				final Button create = (Button) findViewById(R.id.button_create);
 				create.setOnClickListener(new View.OnClickListener() {

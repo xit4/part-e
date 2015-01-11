@@ -2,106 +2,128 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/creation_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_party_msg" />
+    <LinearLayout
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/creation_et"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="@string/party_msg_box"
-        android:inputType="text" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
-            android:id="@+id/from_tv"
+            android:id="@+id/creation_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/from_box" />
+            android:layout_marginTop="20dp"
+            android:text="@string/welcome_party_msg" />
 
-        <EditText
-            android:id="@+id/from_et"
+        <com.example.parte.ListenerEditText
+            android:id="@+id/creation_et"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="@string/party_msg_box"
+            android:inputType="text"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/from_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/from_box" />
+
+            <EditText
+                android:id="@+id/from_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/fromH_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fromH_box" />
+
+            <EditText
+                android:id="@+id/fromH_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/button_from"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/calendar_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/to_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/to_box" />
+
+            <EditText
+                android:id="@+id/to_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/toH_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toH_box" />
+
+            <EditText
+                android:id="@+id/toH_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/button_to"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/calendar_icon" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_createparty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/fromH_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fromH_box" />
-
-        <EditText
-            android:id="@+id/fromH_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text" />
-
-        <ImageButton
-            android:id="@+id/button_from"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/calendar_icon" />
+            android:background="@drawable/custom_button_primary"
+            android:layout_marginTop="20dp"
+            android:onClick="partyManager"
+            android:text="@string/button_createparty" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/to_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_box" />
-
-        <EditText
-            android:id="@+id/to_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/toH_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/toH_box" />
-
-        <EditText
-            android:id="@+id/toH_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text" />
-
-        <ImageButton
-            android:id="@+id/button_to"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/calendar_icon" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_createparty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/button_createparty"
-        android:onClick="partyManager" />
 
 </LinearLayout>

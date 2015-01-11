@@ -11,12 +11,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.parte.ListenerEditText.KeyImeChange;
 
 public class CreateParty extends Activity {
 
@@ -25,6 +29,7 @@ public class CreateParty extends Activity {
 	public static final String EndingDate = "EndingDate";
 	public static final String PartyName = "PartyName";
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
@@ -85,6 +90,28 @@ public class CreateParty extends Activity {
 			}
 		});
 
+		ListenerEditText tv = (ListenerEditText) findViewById(R.id.creation_et);
+		tv.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				LinearLayout l = (LinearLayout) findViewById(R.id.spacer);
+				l.setVisibility(LinearLayout.GONE);
+
+			}
+		});
+
+		tv.setKeyImeChangeListener(new KeyImeChange() {
+
+			@Override
+			public void onKeyIme(int keyCode, KeyEvent event) {
+
+				LinearLayout l = (LinearLayout) findViewById(R.id.spacer);
+				l.setVisibility(LinearLayout.VISIBLE);
+			}
+		});
+
 	}
 
 	public void setDateFromDialog(Context context, String title,
@@ -124,14 +151,15 @@ public class CreateParty extends Activity {
 	@SuppressLint("NewApi")
 	public void partyManager(View view) { // used by the onClick attribute in
 											// the xml file
-		
+
 		TextView Title = (TextView) findViewById(R.id.creation_et);
-		
-		if (Title.getText().toString().equals("") || Title.getText().toString().equals(null)) {
+
+		if (Title.getText().toString().equals("")
+				|| Title.getText().toString().equals(null)) {
 			Toast.makeText(getApplicationContext(),
 					"The title of the party cannot be empty",
 					Toast.LENGTH_SHORT).show();
-					return;
+			return;
 		}
 		Intent intent = new Intent(this, PartyManager.class); // need to store
 																// details about
