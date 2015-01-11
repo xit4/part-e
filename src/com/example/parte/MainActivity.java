@@ -61,14 +61,17 @@ public class MainActivity extends Activity {
 
 			final ArrayList<String> titles = new ArrayList<String>();
 
-			for (int i = 0; i < file.length; i++) {
+			if (file != null) {
 
-				if (file[i].isDirectory()) {
+				for (int i = 0; i < file.length; i++) {
 
-					titles.add(file[i].getName());
+					if (file[i].isDirectory()) {
+
+						titles.add(file[i].getName());
+
+					}
 
 				}
-
 			}
 
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
