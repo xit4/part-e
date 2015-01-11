@@ -17,6 +17,8 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -77,6 +79,22 @@ public class MainActivity extends Activity {
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, titles);
 			listview.setAdapter(adapter);
+
+			listview.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+
+					Editor e = sp.edit();
+					e.putString(PartyName, titles.get(position));
+					Toast.makeText(getBaseContext(),
+							titles.get(position).toString(), Toast.LENGTH_LONG)
+							.show();
+					e.commit();
+					Intent i = new Intent(getBaseContext(), ShowGallery.class);
+					startActivity(i);
+
+				}
+			});
 
 			TextView top = (TextView) findViewById(R.id.top);
 			top.setText("WELCOME " + sp.getString(User, LoginError));

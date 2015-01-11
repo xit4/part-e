@@ -43,7 +43,6 @@ public class ImageAdapter extends BaseAdapter {
 
 			String mobile = tasks[position];
 
-			
 			if (mobile.equals("Who Am I?")) {
 				imageView.setImageResource(R.drawable.ic_action_help);
 				textView.setText("Who Am I");
@@ -53,12 +52,19 @@ public class ImageAdapter extends BaseAdapter {
 			} else if (mobile.equals("Invite")) {
 				imageView.setImageResource(R.drawable.icon_invite);
 				textView.setText("Invite");
-			} else {
-				imageView.setImageResource(R.drawable.ic_action_camera);
-				textView.setText("Camera");
+			} else if (mobile.equals("Jump Matteo")) {
+				imageView.setImageResource(R.drawable.ic_action_help);
+				textView.setText("Jump Matteo");
+			} else if (mobile.equals("Jungle Speed")) {
+				imageView.setImageResource(R.drawable.ic_action_help);
+				textView.setText("Jungle Speed");
+			} else if (mobile.equals("Slap Vito")) {
+				imageView.setImageResource(R.drawable.ic_action_help);
+				textView.setText("Slap Vito");
+
 			}
 		} else {
-	        gridView = (View) convertView;
+			gridView = (View) convertView;
 		}
 
 		return gridView;
@@ -67,7 +73,7 @@ public class ImageAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		return tasks.length;
-		
+
 	}
 
 	@Override

@@ -37,21 +37,21 @@ public class PartyManager extends ActionBarActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 
-		final String[] PARTY_TASK = new String[] { "Who Am I?", "Gallery",
-				"Invite" };
+		final String[] PARTY_TASK = new String[] { "Invite", "Gallery",
+				"Who Am I?", "Jungle Speed", "Slap Vito", "Jump Matteo" };
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.party_manager);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-		
-		getSupportActionBar().setTitle(sp.getString(PartyName, "default"));	
-		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+		}
+
+		getSupportActionBar().setTitle(sp.getString(PartyName, "default"));
+		// getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this, PARTY_TASK));
 
@@ -246,17 +246,17 @@ public class PartyManager extends ActionBarActivity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
-//				if ((data != null) && (data.getExtras() != null)) {
-//					Toast.makeText(
-//							this,
-//							"Image saved to:\n"
-//									+ data.getStringExtra(MediaStore.EXTRA_OUTPUT),
-//							Toast.LENGTH_LONG).show();
-//				} else {
-//					Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
-//							.show();
-//
-//				}
+				// if ((data != null) && (data.getExtras() != null)) {
+				// Toast.makeText(
+				// this,
+				// "Image saved to:\n"
+				// + data.getStringExtra(MediaStore.EXTRA_OUTPUT),
+				// Toast.LENGTH_LONG).show();
+				// } else {
+				// Toast.makeText(this, "Intent null", Toast.LENGTH_LONG)
+				// .show();
+				//
+				// }
 				break;
 			}
 		}
