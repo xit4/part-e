@@ -1,6 +1,13 @@
 package com.example.parte;
 
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,7 +17,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
@@ -21,6 +31,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.parte.ListenerEditText.KeyImeChange;
+import com.example.qdn.NetworkingEventHandler;
+import com.example.qdn.NetworkingManager;
 
 public class CreateParty extends Activity {
 
@@ -161,15 +173,17 @@ public class CreateParty extends Activity {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Intent intent = new Intent(this, PartyManager.class); // need to store
-																// details about
-																// the party,
-																// maybe using
-																// shared
-																// preferences?
-
+		
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
+		NetworkingManager NM = new NetworkingManager(new MyNetworkingEventHandler(), MainActivity.GroupID, sp.getString(MainActivity.User, "username"));
+	
+		NM.saveValueForKeyOfUser(Title.getText().toString(), MainActivity.ListName, "");
+		
+		
+		Intent intent = new Intent(this, PartyManager.class);
+
+		
 
 		TextView From = (TextView) findViewById(R.id.from_et);
 		TextView To = (TextView) findViewById(R.id.to_et);
@@ -208,3 +222,4 @@ public class CreateParty extends Activity {
 
 	}
 }
+

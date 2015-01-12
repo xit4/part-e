@@ -35,7 +35,10 @@ public class MainActivity extends Activity {
 	public static final String User = "username";
 	public static final String PartyName = "PartyName";
 	public static final String LoginError = "Please login first";
-
+	public static final String ListName = "picturesList";
+	public static final String GroupID = "G13";
+	public static final String Pictures = "Pictures";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -166,8 +169,11 @@ public class MainActivity extends Activity {
 				String result = data.getExtras().getString(
 						la.droid.qr.Services.RESULT);
 
-				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-
+				Editor e = sp.edit();
+				e.putString(PartyName, result);
+				e.commit();
+				Intent intent = new Intent(this, PartyManager.class);
+				startActivity(intent);
 			} else if (resultCode == RESULT_CANCELED) {
 			}
 			break;
