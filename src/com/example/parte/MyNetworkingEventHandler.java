@@ -26,11 +26,14 @@ public class MyNetworkingEventHandler implements  NetworkingEventHandler{
 	@Override
 	public void savedValueForKeyOfUser(JSONObject json, String key, String user) {
 		String code="";
+		if(!json.isNull("code")){
 		try {
+		 
 		 code = json.getString("code");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
 		Integer a = Integer.parseInt(code);
 		
 		switch(a){
@@ -45,6 +48,7 @@ public class MyNetworkingEventHandler implements  NetworkingEventHandler{
 			break;
 		
 		}
+	}
 	}
 	
 	@Override

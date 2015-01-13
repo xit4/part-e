@@ -142,44 +142,15 @@ public class PartyManager extends ActionBarActivity {
 			}
 		});
 
+	}
+	
+	protected void onResume(){
+		super.onResume();
+		
+		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
+				Context.MODE_PRIVATE);
 		NetworkingManager NM = new NetworkingManager(
-				new NetworkingEventHandler() {
-
-					@Override
-					public void savedValueForKeyOfUser(JSONObject json,
-							String key, String user) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void loadedValueForKeyOfUser(JSONObject json,
-							String key, String user) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void deletedKeyOfUser(JSONObject json, String key,
-							String user) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void monitoringKeyOfUser(JSONObject json,
-							String key, String user) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void ignoringKeyOfUser(JSONObject json, String key,
-							String user) {
-						// TODO Auto-generated method stub
-
-					}
-
+				new MyNetworkingEventHandler() {
 					@Override
 					public void valueChangedForKeyOfUser(JSONObject json,
 							String key, String user) {
@@ -189,7 +160,7 @@ public class PartyManager extends ActionBarActivity {
 						ArrayList<String> localPicturesList = new ArrayList<String>(
 								Arrays.asList(list.split(",")));
 						try {
-							list = json.getString("value");
+							list = json.getJSONArray("records").getJSONObject(0).getString("value");
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -246,34 +217,26 @@ public class PartyManager extends ActionBarActivity {
 								}, MainActivity.GroupID, sp.getString(
 										MainActivity.User, ""));
 						for (String ciao : picturesList) {
-							if (!localPicturesList.contains(ciao)) {
+							if (!ciao.equals("") && !localPicturesList.contains(ciao)) {
 								NM.loadValueForKeyOfUser(ciao,
 										MainActivity.Pictures);
+								localPicturesList.add(ciao);
 							}
 						}
+						
+						String result = "";
+						for (String arg : localPicturesList) {
+							result += arg + ",";
+						}
 						Editor e = sp.edit();
-						e.putString(MainActivity.ListName, list);
+						e.putString(MainActivity.ListName, result);
 						e.commit();
-					}
-
-					@Override
-					public void lockedKeyofUser(JSONObject json, String key,
-							String user) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void unlockedKeyOfUser(JSONObject json, String key,
-							String user) {
-						// TODO Auto-generated method stub
-
 					}
 				}, MainActivity.GroupID, sp.getString(MainActivity.User, ""));
 		NM.monitorKeyOfUser(sp.getString(MainActivity.PartyName, "PartyName"),
 				MainActivity.ListName);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -350,43 +313,7 @@ public class PartyManager extends ActionBarActivity {
 				final SharedPreferences sp = getSharedPreferences(
 						MyPREFERENCES, Context.MODE_PRIVATE);
 				NetworkingManager NM = new NetworkingManager(
-						new NetworkingEventHandler() {
-
-							@Override
-							public void valueChangedForKeyOfUser(
-									JSONObject json, String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void unlockedKeyOfUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void savedValueForKeyOfUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void monitoringKeyOfUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void lockedKeyofUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
+						new MyNetworkingEventHandler() {
 							@Override
 							public void loadedValueForKeyOfUser(
 									JSONObject json, String key, String user) {
@@ -401,6 +328,7 @@ public class PartyManager extends ActionBarActivity {
 										Arrays.asList(list.split(",")));
 								String imgPath = sp.getString("imgUri", "");
 								String imgName = sp.getString("imgName", "");
+								
 								picturesList.add(imgName);
 								Bitmap b = BitmapFactory.decodeFile(imgPath);
 								String s = BitMapToString(b);
@@ -422,20 +350,6 @@ public class PartyManager extends ActionBarActivity {
 								NM.saveValueForKeyOfUser(imgName,
 										MainActivity.Pictures, s);
 							}
-
-							@Override
-							public void ignoringKeyOfUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
-
-							@Override
-							public void deletedKeyOfUser(JSONObject json,
-									String key, String user) {
-								// TODO Auto-generated method stub
-
-							}
 						}, MainActivity.GroupID, sp.getString(
 								MainActivity.User, "username"));
 				NM.lockKeyOfUser(
@@ -445,6 +359,21 @@ public class PartyManager extends ActionBarActivity {
 						sp.getString(MainActivity.PartyName, "PartyName"),
 						MainActivity.ListName);
 
+				String list = "";
+				list = sp.getString(MainActivity.ListName, "");
+
+				ArrayList<String> localPicturesList = new ArrayList<String>(
+						Arrays.asList(list.split(",")));
+				
+				String imgName = sp.getString("imgName", "");
+				localPicturesList.add(imgName);
+				String result = "";
+				for (String arg : localPicturesList) {
+					result += arg + ",";
+				}
+				Editor e = sp.edit();
+				e.putString(MainActivity.ListName,result);
+				e.commit();
 				break;
 			}
 		}
@@ -464,7 +393,7 @@ public class PartyManager extends ActionBarActivity {
 
 	public String BitMapToString(Bitmap bitmap) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 0, baos);
 		byte[] b = baos.toByteArray();
 		String temp = Base64.encodeToString(b, Base64.DEFAULT);
 		return temp;

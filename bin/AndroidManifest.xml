@@ -32,6 +32,7 @@
         <activity android:name=".LogInActivity" />
         <activity
             android:name=".CreateParty"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity" />
         <activity android:name="la.droid.qr.Scan" />
         <activity android:name=".PartyManager" />
