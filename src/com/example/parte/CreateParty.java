@@ -73,7 +73,7 @@ public class CreateParty extends Activity {
 		Start.setText(new StringBuilder().append(hour).append(":")
 				.append(minutes));
 
-		if ((hour + 6) > 24)
+		if ((hour + 6) >= 24)
 			day++;
 
 		To.setText(new StringBuilder().append(day).append("/").append(month)
