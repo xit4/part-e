@@ -264,7 +264,7 @@ public class PartyManager extends ActionBarActivity {
 							+ sp.getString(User, "defaultUser")
 							+ File.separator
 							+ sp.getString(PartyName, "defaultParty")
-							+ File.separator + "IMG_" + timeStamp + ".jpg");
+							+ File.separator + timeStamp + ".jpg");
 
 			Uri uriSavedImage = Uri.fromFile(media);
 
@@ -277,7 +277,7 @@ public class PartyManager extends ActionBarActivity {
 
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 			Editor e = sp.edit();
-			e.putString("imgName", "IMG_" + timeStamp + ".jpg");
+			e.putString("imgName",timeStamp + ".jpg");
 			e.putString("imgUri", uriSavedImage.getPath());
 			e.commit();
 			if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -393,7 +393,7 @@ public class PartyManager extends ActionBarActivity {
 
 	public String BitMapToString(Bitmap bitmap) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 0, baos);
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 		byte[] b = baos.toByteArray();
 		String temp = Base64.encodeToString(b, Base64.DEFAULT);
 		return temp;
