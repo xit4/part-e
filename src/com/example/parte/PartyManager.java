@@ -175,8 +175,8 @@ public class PartyManager extends ActionBarActivity {
 									public void loadedValueForKeyOfUser(
 
 									JSONObject json, String key, String user) {
-										Toast.makeText(getBaseContext(),
-												"New picture in gallery",
+										Toast.makeText(getApplicationContext(),
+												"New picture added in gallery",
 												Toast.LENGTH_SHORT).show();
 										String imgString = "";
 										try {
