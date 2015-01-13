@@ -1,8 +1,8 @@
 package com.example.parte;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +36,7 @@ public class MainActivity extends Activity {
 	public static final String ListName = "picturesList";
 	public static final String GroupID = "G13";
 	public static final String Pictures = "Pictures";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,13 +87,23 @@ public class MainActivity extends Activity {
 
 					Editor e = sp.edit();
 					e.putString(PartyName, titles.get(position));
-					//Toast.makeText(getBaseContext(),
-					//		titles.get(position).toString(), Toast.LENGTH_LONG)
-					//		.show();
+					// Toast.makeText(getBaseContext(),
+					// titles.get(position).toString(), Toast.LENGTH_LONG)
+					// .show();
 					e.commit();
-					Intent i = new Intent(getBaseContext(), ShowGallery.class);
-					startActivity(i);
 
+					Calendar c = Calendar.getInstance();
+
+					long currentTime = c.getTimeInMillis();
+					long endTime = sp.getLong(CreateParty.EndingDate, 0);
+					Intent i;
+					if (currentTime > endTime) {
+						i = new Intent(getBaseContext(),
+								ShowGallery.class);
+					} else {
+						i = new Intent(getBaseContext(), PartyManager.class);
+					}
+					startActivity(i);
 				}
 			});
 
