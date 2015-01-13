@@ -143,10 +143,10 @@ public class PartyManager extends ActionBarActivity {
 		});
 
 	}
-	
-	protected void onResume(){
+
+	protected void onResume() {
 		super.onResume();
-		
+
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
 		NetworkingManager NM = new NetworkingManager(
@@ -160,7 +160,8 @@ public class PartyManager extends ActionBarActivity {
 						ArrayList<String> localPicturesList = new ArrayList<String>(
 								Arrays.asList(list.split(",")));
 						try {
-							list = json.getJSONArray("records").getJSONObject(0).getString("value");
+							list = json.getJSONArray("records")
+									.getJSONObject(0).getString("value");
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -172,8 +173,11 @@ public class PartyManager extends ActionBarActivity {
 
 									@Override
 									public void loadedValueForKeyOfUser(
-											JSONObject json, String key,
-											String user) {
+
+									JSONObject json, String key, String user) {
+										Toast.makeText(getBaseContext(),
+												"New picture in gallery",
+												Toast.LENGTH_SHORT).show();
 										String imgString = "";
 										try {
 											imgString = json.getString("value");
@@ -217,13 +221,14 @@ public class PartyManager extends ActionBarActivity {
 								}, MainActivity.GroupID, sp.getString(
 										MainActivity.User, ""));
 						for (String ciao : picturesList) {
-							if (!ciao.equals("") && !localPicturesList.contains(ciao)) {
+							if (!ciao.equals("")
+									&& !localPicturesList.contains(ciao)) {
 								NM.loadValueForKeyOfUser(ciao,
 										MainActivity.Pictures);
 								localPicturesList.add(ciao);
 							}
 						}
-						
+
 						String result = "";
 						for (String arg : localPicturesList) {
 							result += arg + ",";
@@ -236,7 +241,7 @@ public class PartyManager extends ActionBarActivity {
 		NM.monitorKeyOfUser(sp.getString(MainActivity.PartyName, "PartyName"),
 				MainActivity.ListName);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -277,7 +282,7 @@ public class PartyManager extends ActionBarActivity {
 
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
 			Editor e = sp.edit();
-			e.putString("imgName",timeStamp + ".jpg");
+			e.putString("imgName", timeStamp + ".jpg");
 			e.putString("imgUri", uriSavedImage.getPath());
 			e.commit();
 			if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -328,7 +333,7 @@ public class PartyManager extends ActionBarActivity {
 										Arrays.asList(list.split(",")));
 								String imgPath = sp.getString("imgUri", "");
 								String imgName = sp.getString("imgName", "");
-								
+
 								picturesList.add(imgName);
 								Bitmap b = BitmapFactory.decodeFile(imgPath);
 								String s = BitMapToString(b);
@@ -364,7 +369,7 @@ public class PartyManager extends ActionBarActivity {
 
 				ArrayList<String> localPicturesList = new ArrayList<String>(
 						Arrays.asList(list.split(",")));
-				
+
 				String imgName = sp.getString("imgName", "");
 				localPicturesList.add(imgName);
 				String result = "";
@@ -372,7 +377,7 @@ public class PartyManager extends ActionBarActivity {
 					result += arg + ",";
 				}
 				Editor e = sp.edit();
-				e.putString(MainActivity.ListName,result);
+				e.putString(MainActivity.ListName, result);
 				e.commit();
 				break;
 			}
@@ -393,7 +398,7 @@ public class PartyManager extends ActionBarActivity {
 
 	public String BitMapToString(Bitmap bitmap) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 0, baos);
 		byte[] b = baos.toByteArray();
 		String temp = Base64.encodeToString(b, Base64.DEFAULT);
 		return temp;
