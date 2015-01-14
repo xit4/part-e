@@ -154,12 +154,17 @@ public class PartyManager extends ActionBarActivity {
 					@Override
 					public void valueChangedForKeyOfUser(JSONObject json,
 							String key, String user) {
+						
+						//handling the change of the picture list string on the server
+						
 						String list = "";
 						list = sp.getString(MainActivity.ListName, "");
 
 						ArrayList<String> localPicturesList = new ArrayList<String>(
 								Arrays.asList(list.split(",")));
 						try {
+							
+							//this json contains the updated picturesList
 							list = json.getJSONArray("records")
 									.getJSONObject(0).getString("value");
 						} catch (JSONException e) {
@@ -184,6 +189,9 @@ public class PartyManager extends ActionBarActivity {
 										} catch (JSONException e) {
 											e.printStackTrace();
 										}
+										
+										//saving new picture with correct path
+										
 										File media = new File(
 												Environment
 														.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -220,6 +228,9 @@ public class PartyManager extends ActionBarActivity {
 									}
 								}, MainActivity.GroupID, sp.getString(
 										MainActivity.User, ""));
+						
+						//checking if the new server pictureList contains new pictures or not
+						
 						for (String ciao : picturesList) {
 							if (!ciao.equals("")
 									&& !localPicturesList.contains(ciao)) {
@@ -273,9 +284,6 @@ public class PartyManager extends ActionBarActivity {
 
 			Uri uriSavedImage = Uri.fromFile(media);
 
-			// Toast.makeText(getBaseContext(),
-			// "Image 1 saved to:\n" + uriSavedImage.getPath(),
-			// Toast.LENGTH_LONG).show();
 
 			Intent takePictureIntent = new Intent(
 					MediaStore.ACTION_IMAGE_CAPTURE);
@@ -299,6 +307,8 @@ public class PartyManager extends ActionBarActivity {
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		//method that handles activities that will provide a result
 
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
@@ -315,6 +325,8 @@ public class PartyManager extends ActionBarActivity {
 				break;
 
 			case REQUEST_IMAGE_CAPTURE:
+				
+				//if a picture is taken:
 				final SharedPreferences sp = getSharedPreferences(
 						MyPREFERENCES, Context.MODE_PRIVATE);
 				NetworkingManager NM = new NetworkingManager(
@@ -329,6 +341,8 @@ public class PartyManager extends ActionBarActivity {
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
+								
+								
 								ArrayList<String> picturesList = new ArrayList<String>(
 										Arrays.asList(list.split(",")));
 								String imgPath = sp.getString("imgUri", "");
@@ -346,6 +360,11 @@ public class PartyManager extends ActionBarActivity {
 								for (String arg : picturesList) {
 									result += arg + ",";
 								}
+								
+								//load new pictures list and the string representing the new picture
+								//we store all picture with user = pictures and key = imgName, then each time
+								//we retrieve the picture missing comparing local picture list and server picture list
+								
 								NM.saveValueForKeyOfUser(sp.getString(
 										MainActivity.PartyName, "PartyName"),
 										MainActivity.ListName, result);
@@ -360,6 +379,9 @@ public class PartyManager extends ActionBarActivity {
 				NM.lockKeyOfUser(
 						sp.getString(MainActivity.PartyName, "PartyName"),
 						MainActivity.ListName);
+				
+				//loading the list of picture of current party, to check for differences
+				
 				NM.loadValueForKeyOfUser(
 						sp.getString(MainActivity.PartyName, "PartyName"),
 						MainActivity.ListName);
@@ -373,6 +395,9 @@ public class PartyManager extends ActionBarActivity {
 				String imgName = sp.getString("imgName", "");
 				localPicturesList.add(imgName);
 				String result = "";
+				
+				//check between local pictures list and server picture list, the local list would be modified in the server callback specified above
+				
 				for (String arg : localPicturesList) {
 					result += arg + ",";
 				}
@@ -384,6 +409,9 @@ public class PartyManager extends ActionBarActivity {
 		}
 	}
 
+	
+	//functions to handle bitmap <-> string conversion
+	
 	public Bitmap StringToBitMap(String encodedString) {
 		try {
 			byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);

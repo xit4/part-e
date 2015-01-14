@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ImageAdapter extends BaseAdapter {
-
+	
+	
+	//adapter for show icons and text in party manager
 	private Context context;
 	private final String[] tasks;
 

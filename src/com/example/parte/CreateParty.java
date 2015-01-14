@@ -1,13 +1,6 @@
 package com.example.parte;
 
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,10 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
@@ -31,7 +21,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.parte.ListenerEditText.KeyImeChange;
-import com.example.qdn.NetworkingEventHandler;
 import com.example.qdn.NetworkingManager;
 
 public class CreateParty extends Activity {
@@ -40,6 +29,8 @@ public class CreateParty extends Activity {
 	public static final String StartingDate = "StartingDate";
 	public static final String EndingDate = "EndingDate";
 	public static final String PartyName = "PartyName";
+	
+	//this activity allows the user to create a brand new party, it implements pickers
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +50,10 @@ public class CreateParty extends Activity {
 		Start = (TextView) findViewById(R.id.fromH_et);
 		End = (TextView) findViewById(R.id.toH_et);
 
+		
+		
+		//just playing with time variables
+		
 		final Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH) + 1;
@@ -114,6 +109,9 @@ public class CreateParty extends Activity {
 			}
 		});
 
+		
+		//capturing the back button pression and re-setting the layout
+		
 		tv.setKeyImeChangeListener(new KeyImeChange() {
 
 			@Override
@@ -129,6 +127,7 @@ public class CreateParty extends Activity {
 	public void setDateFromDialog(Context context, String title,
 			final TextView toFillDate, final TextView toFillHour) {
 
+		//a simple picker dialog with a neutral button (confirm)
 		final View dialogView = View.inflate(context, R.layout.custom_dialog,
 				null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -164,6 +163,8 @@ public class CreateParty extends Activity {
 	public void partyManager(View view) { // used by the onClick attribute in
 											// the xml file
 
+		
+		//method to save party variables and adding the new pictureList (empty) on the server
 		TextView Title = (TextView) findViewById(R.id.creation_et);
 
 		if (Title.getText().toString().equals("")
@@ -178,6 +179,8 @@ public class CreateParty extends Activity {
 				Context.MODE_PRIVATE);
 		NetworkingManager NM = new NetworkingManager(new MyNetworkingEventHandler(), MainActivity.GroupID, sp.getString(MainActivity.User, "username"));
 	
+		
+		//saving an empty list for the insert party
 		NM.saveValueForKeyOfUser(Title.getText().toString(), MainActivity.ListName, "");
 		
 		
@@ -218,6 +221,7 @@ public class CreateParty extends Activity {
 		editor.commit();
 
 		startActivity(intent);
+		//activity dies
 		finish();
 
 	}

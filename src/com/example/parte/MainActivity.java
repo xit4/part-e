@@ -41,6 +41,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
+		//application core
 		final SharedPreferences sp = getSharedPreferences(MyPREFERENCES,
 				Context.MODE_PRIVATE);
 
@@ -63,6 +65,7 @@ public class MainActivity extends Activity {
 			File[] file = f.listFiles();
 
 			final ArrayList<String> titles = new ArrayList<String>();
+			//retrieving all parties to be displayed in the listview under the buttons
 
 			if (file != null) {
 
@@ -87,11 +90,11 @@ public class MainActivity extends Activity {
 
 					Editor e = sp.edit();
 					e.putString(PartyName, titles.get(position));
-					// Toast.makeText(getBaseContext(),
-					// titles.get(position).toString(), Toast.LENGTH_LONG)
-					// .show();
 					e.commit();
 
+					
+					//differentiation between expired parties and still running parties not really implemented
+					//we don't store the different data for the different party, we just check (wrongly) the last party created
 					Calendar c = Calendar.getInstance();
 
 					long currentTime = c.getTimeInMillis();
@@ -108,7 +111,7 @@ public class MainActivity extends Activity {
 			});
 
 			TextView top = (TextView) findViewById(R.id.top);
-			top.setText("WELCOME " + sp.getString(User, LoginError));
+			top.setText("Welcome " + sp.getString(User, LoginError));
 
 			final Button create = (Button) findViewById(R.id.button_create);
 			create.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +147,8 @@ public class MainActivity extends Activity {
 
 		switch (requestCode) {
 		case REQUEST_LOGIN:
+			
+			//if it's the first time the user runs the app, the log activity will be called
 			if (resultCode == RESULT_OK) {
 
 				Toast.makeText(this,
@@ -174,6 +179,7 @@ public class MainActivity extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
+				//handling scanning result
 				String result = data.getExtras().getString(
 						la.droid.qr.Services.RESULT);
 
@@ -202,6 +208,8 @@ public class MainActivity extends Activity {
 	}
 
 	protected void joinParty() {
+		
+		//if the user doesn't have a qr scanner, he/she will be asked to install the right one
 		Intent qrDroid = new Intent(la.droid.qr.Services.SCAN);
 		try {
 			startActivityForResult(qrDroid, REQUEST_QR_SCAN);

@@ -28,6 +28,8 @@ import android.widget.ImageView;
 
 @SuppressWarnings("deprecation")
 public class ShowGallery extends ActionBarActivity {
+	
+		//activity implementing the galery
 
 		int currentPosition;
 		File[] file;
@@ -59,7 +61,6 @@ public class ShowGallery extends ActionBarActivity {
 		    file = f.listFiles();
 		    
 		    for(int i=0;i<file.length;i++){
-//		    	Bitmap myBitmap =BitmapFactory.decodeFile(file[i].getAbsolutePath());
 		    imageIDs.add(file[i].getAbsolutePath());
 		    
 		    }
@@ -67,6 +68,8 @@ public class ShowGallery extends ActionBarActivity {
 				Gallery gallery = (Gallery) findViewById(R.id.gallery1);
 				ImageView imageView = (ImageView) findViewById(R.id.image1);
 				imageView.setOnTouchListener(new OnSwipeTouchListener(this) {
+					
+					//swipe handling
 				    @Override
 				    public void onSwipeRight() {
 				    	ImageView imageView = (ImageView) findViewById(R.id.image1);
@@ -97,15 +100,16 @@ public class ShowGallery extends ActionBarActivity {
 		}
 
 		public class ImageAdapter extends BaseAdapter {
+			
+			//adapter for gallery thumbnails
+			
 			private Context context;
 			private int itemBackground;
 			public ImageAdapter(Context c)
 			{
 				context = c;
 //				 sets a grey background; wraps around the images
-//				TypedArray a =obtainStyledAttributes(R.styleable.MyGallery);
-//				itemBackground = a.getResourceId(R.styleable.MyGallery_android_galleryItemBackground, 0);
-//				a.recycle();
+
 			}
 			// returns the number of images
 			public int getCount() {

@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.example.qdn.*;
 
 public class MyNetworkingEventHandler implements  NetworkingEventHandler{
+	
+	//base network handler, we will overwrite the methods we need everytime we instantiate a new object
 
 	
 	@Override
@@ -38,7 +40,7 @@ public class MyNetworkingEventHandler implements  NetworkingEventHandler{
 		
 		switch(a){
 		case 0:
-			Log.d("CallbackCode","Error creating Party List");
+			Log.d("CallbackCode","Error creating Item");
 			break;
 		case 1:
 			Log.d("CallbackCode","New item created");

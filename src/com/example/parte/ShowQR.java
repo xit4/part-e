@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class ShowQR extends ActionBarActivity {
+	
+	//simple activity used to show the QR code passed as extra within the intent
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,8 +28,6 @@ public class ShowQR extends ActionBarActivity {
 		
 		ImageView imgResult = (ImageView) findViewById(R.id.img_result);
 		
-		//DON'T NEED TO STORE QR IMAGE
-		
 		String qrCode = i.getExtras().getString(
 				la.droid.qr.Services.RESULT);
 
@@ -41,13 +41,6 @@ public class ShowQR extends ActionBarActivity {
 		imgResult.setImageURI(Uri.parse(qrCode));
 		imgResult.setVisibility(View.VISIBLE);
 
-		// TODO: After using this QR code, you should move it to a
-		// permanent location, or delete it
 
-		
-//		 String result =
-//		 i.getExtras().getString(la.droid.qr.Services.RESULT);
-//		 //Just set result to a toast to be able to view it
-//		 Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
 	}
 }

@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 public class LogInActivity extends Activity {
 	
-	public static final String MyPREFERENCES = "UserPartyPref";				//different shared preferences user / party?
+	//easy activity to retrieve a user nickname, it is displayed only the first time you run the app
+	
+	public static final String MyPREFERENCES = "UserPartyPref";				
 	public static final String User = "username"; 	
 	
 	protected void onCreate(Bundle savedInstanceState) {

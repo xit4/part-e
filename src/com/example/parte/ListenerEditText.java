@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 public class ListenerEditText extends EditText {
 
-
+	//listener useful to capture the back button pression
     private KeyImeChange keyImeChangeListener;
 
     public ListenerEditText(Context context, AttributeSet attrs) {
